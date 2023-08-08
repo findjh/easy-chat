@@ -1,4 +1,9 @@
+import bg from '@/assets/bg.svg'
 const Message = () => {
-  return <div>消息</div>
+  return (
+    <div>
+      <img src={bg} alt="" />
+    </div>
+  )
 }
 export default Message
