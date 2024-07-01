@@ -29,20 +29,14 @@ const Message = () => {
       lisiInputRef.current?.clear()
     }
   }
-  const [isZhangsanLogin, setIsZhangsanLogin] = useState(() => {
-    return localStorage.getItem('isZhangsanLogin') === 'true'
-  })
-  const [isLisiLogin, setIsLisiLogin] = useState(() => {
-    return localStorage.getItem('isLisiLogin') === 'true'
-  })
+  const [isZhangsanLogin, setIsZhangsanLogin] = useState(false)
+  const [isLisiLogin, setIsLisiLogin] = useState(false)
   const handleLogin = (username: UserName) => {
     sendMessage({ messageType: 0, username, password: 123 })
     if (username === 'zhangsan') {
-      localStorage.setItem('isZhangsanLogin', 'true')
       setIsZhangsanLogin(true)
     }
     if (username === 'lisi') {
-      localStorage.setItem('isLisiLogin', 'true')
       setIsLisiLogin(true)
     }
   }
