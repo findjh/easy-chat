@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom'
 import LandingPage from '@/views/landingPage'
 import LayoutWithTabBar from './LayoutWithTabBar'
 import Login from '@/views/login'
+import ProtectedRoute from '@/components/ProtectedRoute'
 export const routes = [
   {
     path: '/',
@@ -13,7 +14,11 @@ export const routes = [
   },
   {
     path: '/',
-    element: <LayoutWithTabBar />,
+    element: (
+      <ProtectedRoute>
+        <LayoutWithTabBar />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: 'message',

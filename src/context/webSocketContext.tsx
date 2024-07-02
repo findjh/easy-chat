@@ -1,6 +1,9 @@
 import { MessageType } from '@/types'
 import { Toast } from 'antd-mobile'
 import { ReactNode, createContext, useEffect, useRef, useState } from 'react'
+// import useLoginStore from '@/store/loginStore'
+import { useNavigate } from 'react-router-dom'
+
 interface IMessage {
   messageType: MessageType
   [key: string]: any
@@ -24,8 +27,9 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
 }) => {
   const [messages, setMessages] = useState<IMessage[]>([])
   const [isConnected, setIsConnected] = useState<boolean>(false)
+  const navigate = useNavigate()
   const ws = useRef<WebSocket | null>(null)
-
+  // const login = useLoginStore((state) => state.login)
   useEffect(() => {
     if (!ws.current) {
       ws.current = new WebSocket(url)
@@ -39,11 +43,20 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
     ws.current.onmessage = (event: MessageEvent) => {
       const message = JSON.parse(event.data)
       if (message.success) {
-        setMessages((prevMessages) => [...prevMessages, message])
-        Toast.show({
-          icon: 'success',
-          content: message.reason
-        })
+        if (message.messageType === MessageType.LoginResponseMessage) {
+          // TODO: 接口还没加上用户信息，先在登录组件写死
+          // login({
+          //   username: message.username,
+          //   token: 'random token'
+          // })
+          navigate('/message')
+        } else if (message.messageType === MessageType.ChatResponseMessage) {
+          setMessages((prevMessages) => [...prevMessages, message])
+          Toast.show({
+            icon: 'success',
+            content: message.reason
+          })
+        }
       } else {
         Toast.show({
           icon: 'fail',
