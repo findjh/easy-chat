@@ -10,6 +10,7 @@ import {
 } from 'antd-mobile'
 import useWebSocket from '@/context/useWebSocket'
 import { useRef, useState } from 'react'
+import { MessageType } from '@/types'
 type UserName = 'zhangsan' | 'lisi'
 const Message = () => {
   const { messages, sendMessage, isConnected } = useWebSocket()
@@ -17,11 +18,15 @@ const Message = () => {
   const zhangsanInputRef = useRef<InputRef>(null)
   const lisiInputRef = useRef<InputRef>(null)
   const handleSubmit = (from: UserName, to: UserName, content?: string) => {
-    console.log(zhangsanInputRef.current)
     if (!content) {
       throw new Error('no empty')
     }
-    sendMessage({ messageType: 2, from, to, content })
+    sendMessage({
+      messageType: MessageType.ChatRequestMessage,
+      from,
+      to,
+      content
+    })
     if (from === 'zhangsan') {
       zhangsanInputRef.current?.clear()
     }
@@ -29,10 +34,14 @@ const Message = () => {
       lisiInputRef.current?.clear()
     }
   }
-  const [isZhangsanLogin, setIsZhangsanLogin] = useState(false)
+  const [isZhangsanLogin, setIsZhangsanLogin] = useState(true)
   const [isLisiLogin, setIsLisiLogin] = useState(false)
   const handleLogin = (username: UserName) => {
-    sendMessage({ messageType: 0, username, password: 123 })
+    sendMessage({
+      messageType: MessageType.LoginRequestMessage,
+      username,
+      password: 123
+    })
     if (username === 'zhangsan') {
       setIsZhangsanLogin(true)
     }
@@ -109,7 +118,10 @@ const Message = () => {
                 </Form.Item>
                 <List header="消息">
                   {messages
-                    .filter((item) => item.messageType === 3)
+                    .filter(
+                      (item) =>
+                        item.messageType === MessageType.ChatResponseMessage
+                    )
                     .filter((item) => item.from !== 'lisi')
 
                     .map((item, index) => (

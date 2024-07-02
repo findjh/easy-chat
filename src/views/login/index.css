@@ -1,0 +1,16 @@
+.login-page{
+    width: 100svw;
+    height: 100svh;
+background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+.adm-list-body{
+    background-color: transparent;
+    border-top: none !important;
+    border-bottom: none !important;
+}
+.adm-form-item {
+    border-radius: 10px;
+}
+.adm-list-item-content{
+    border-top: none;
+}

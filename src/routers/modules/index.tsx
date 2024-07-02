@@ -3,37 +3,61 @@ import Contact from '@/views/contact'
 import Discover from '@/views/discover'
 import PersonalCenter from '@/views/personalCenter'
 import { Navigate } from 'react-router-dom'
+import LandingPage from '@/views/landingPage'
+import LayoutWithTabBar from './LayoutWithTabBar'
+import Login from '@/views/login'
 export const routes = [
   {
     path: '/',
-    element: <Navigate to="/message" replace={true} />
+    element: <Navigate to="/login" replace={true} />
   },
   {
-    path: '/message',
-    element: <Message />,
+    path: '/',
+    element: <LayoutWithTabBar />,
+    children: [
+      {
+        path: 'message',
+        element: <Message />,
+        meta: {
+          title: '消息'
+        }
+      },
+      {
+        path: 'contact',
+        element: <Contact />,
+        meta: {
+          title: '通讯录'
+        }
+      },
+      {
+        path: 'discover',
+        element: <Discover />,
+        meta: {
+          title: '发现'
+        }
+      },
+      {
+        path: 'personalCenter',
+        element: <PersonalCenter />,
+        meta: {
+          title: '我'
+        }
+      }
+    ]
+  },
+
+  {
+    path: '/landingPage',
+    element: <LandingPage />,
     meta: {
-      title: '消息'
+      title: 'landingPage'
     }
   },
   {
-    path: '/contact',
-    element: <Contact />,
+    path: '/login',
+    element: <Login />,
     meta: {
-      title: '通讯录'
-    }
-  },
-  {
-    path: '/discover',
-    element: <Discover />,
-    meta: {
-      title: '发现'
-    }
-  },
-  {
-    path: '/personalCenter',
-    element: <PersonalCenter />,
-    meta: {
-      title: '我'
+      title: 'login'
     }
   }
 ]

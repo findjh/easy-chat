@@ -1,7 +1,8 @@
+import { MessageType } from '@/types'
 import { Toast } from 'antd-mobile'
 import { ReactNode, createContext, useEffect, useRef, useState } from 'react'
 interface IMessage {
-  messageType: number
+  messageType: MessageType
   [key: string]: any
 }
 export interface WebSocketContextProps {
@@ -26,7 +27,9 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   const ws = useRef<WebSocket | null>(null)
 
   useEffect(() => {
-    ws.current = new WebSocket(url)
+    if (!ws.current) {
+      ws.current = new WebSocket(url)
+    }
 
     ws.current.onopen = () => {
       console.log('Connected to WebSocket server')
