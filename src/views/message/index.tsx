@@ -1,54 +1,84 @@
 // import bg from '@/assets/bg.svg'
-import { Button, Form, Input, List, SpinLoading } from 'antd-mobile'
+import { Avatar, Badge, SpinLoading, SwipeAction } from 'antd-mobile'
 import useWebSocket from '@/context/useWebSocket'
-import { useState } from 'react'
-import { MessageType } from '@/types'
+import './index.less'
+import { Action } from 'antd-mobile/es/components/swipe-action'
+import { useNavigate } from 'react-router-dom'
 import useLoginStore from '@/store/loginStore'
+
 const Message = () => {
-  const { messages, sendMessage, isConnected } = useWebSocket()
-  console.log(messages, 'messages')
+  const { isConnected } = useWebSocket()
+
   const user = useLoginStore((state) => state.user)
-  const [content, setContent] = useState('')
 
-  const handleSubmit = () => {
-    if (!content) {
-      throw new Error('no empty')
+  const navigate = useNavigate()
+  const leftActions: Action[] = [
+    {
+      key: 'pin',
+      text: '置顶',
+      color: 'primary'
     }
-    sendMessage({
-      messageType: MessageType.ChatRequestMessage,
-      from: user?.username,
-      to: user?.username === 'zhangsan' ? 'lisi' : 'zhangsan',
-      content
-    })
-    setContent('')
-  }
-
+  ]
+  const rightActions: Action[] = [
+    {
+      key: 'unsubscribe',
+      text: '取消关注',
+      color: 'light'
+    },
+    {
+      key: 'mute',
+      text: '免打扰',
+      color: 'warning'
+    },
+    {
+      key: 'delete',
+      text: '删除',
+      color: 'danger'
+    }
+  ]
   return (
-    <div>
+    <div className="msg-list">
       {isConnected ? (
         <>
-          <Form.Item
-            extra={
-              <Button color="primary" onClick={handleSubmit}>
-                发送
-              </Button>
-            }
-          >
-            <Input
-              placeholder="输入内容"
-              value={content}
-              onChange={(val) => setContent(val)}
-              clearable
-            />
-          </Form.Item>
-          <List header="消息">
-            {messages.map((item, index) => (
-              <List.Item key={index}>
-                <span>{item.from} : </span>
-                {item.content}
-              </List.Item>
-            ))}
-          </List>
+          <div>
+            <SwipeAction leftActions={leftActions} rightActions={rightActions}>
+              <div
+                className="h-full"
+                onClick={() => {
+                  navigate('/chatRoom')
+                }}
+                // prefix={
+                //   <Avatar
+                //     src={user!.headurl}
+                //     style={{ '--size': '48px', '--border-radius': '50%' }}
+                //   />
+                // }
+              >
+                <div className="flex items-center p-2">
+                  <div className="pr-1">
+                    <Avatar
+                      src={user!.headurl}
+                      style={{ '--size': '52px', '--border-radius': '50%' }}
+                    />
+                  </div>
+                  <div className="mx-2 w-full">
+                    <div className="flex justify-between">
+                      <span className="text-base">
+                        {user?.username === 'zhangsan' ? '李四' : '张三'}
+                      </span>
+                      <span className="items-center">
+                        <Badge color="#87d068" content="99+" />
+                      </span>
+                    </div>
+                    <div className="text-gray-400 mt-2 text-xs flex justify-between">
+                      <span>消息消息消息</span>
+                      <span>12:00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </SwipeAction>
+          </div>
         </>
       ) : (
         <SpinLoading />

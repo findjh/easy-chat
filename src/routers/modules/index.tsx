@@ -4,7 +4,8 @@ import Discover from '@/views/discover'
 import PersonalCenter from '@/views/personalCenter'
 import { Navigate } from 'react-router-dom'
 import LandingPage from '@/views/landingPage'
-import LayoutWithTabBar from './LayoutWithTabBar'
+import ChatRoom from '@/views/chatRoom'
+import LayoutWithTabBar from './layoutWithTabBar'
 import Login from '@/views/login'
 import ProtectedRoute from '@/components/ProtectedRoute'
 export const routes = [
@@ -63,6 +64,13 @@ export const routes = [
     element: <Login />,
     meta: {
       title: 'login'
+    }
+  },
+  {
+    path: '/chatRoom',
+    element: <ChatRoom />,
+    meta: {
+      title: 'chatRoom'
     }
   }
 ]

@@ -1,4 +1,4 @@
-import create from 'zustand'
+import { create } from 'zustand'
 type User = {
   username: string
   token: string

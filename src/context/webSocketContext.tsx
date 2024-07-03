@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 interface IMessage {
   messageType: MessageType
-  [key: string]: any
+  [key: string]: string | number
 }
 export interface WebSocketContextProps {
   messages: IMessage[]
@@ -80,6 +80,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
         ws.current.close()
       }
     }
+    // eslint-disable-next-line
   }, [url])
 
   const sendMessage = (message: IMessage) => {
