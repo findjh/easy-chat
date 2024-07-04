@@ -3,6 +3,7 @@ const Message = () => {
   return (
     <div>
       <img src={bg} alt="" />
+      <div>111</div>
     </div>
   )
 }
