@@ -1,4 +1,5 @@
-export const mockUsers = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const mockUsers: any = {
   zhangsan: {
     username: 'zhangsan',
     headurl:

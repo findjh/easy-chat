@@ -11,7 +11,7 @@ import ProtectedRoute from '@/components/ProtectedRoute'
 export const routes = [
   {
     path: '/',
-    element: <Navigate to="/login" replace={true} />
+    element: <Navigate to="/landingPage" replace={true} />
   },
   {
     path: '/',

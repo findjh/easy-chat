@@ -4,22 +4,31 @@ import { ReactNode, createContext, useEffect, useRef, useState } from 'react'
 // import useLoginStore from '@/store/loginStore'
 import { useNavigate } from 'react-router-dom'
 
-interface IMessage {
-  messageType: MessageType
-  [key: string]: string | number
+export interface IChatMessage {
+  messageType: MessageType.ChatRequestMessage | MessageType.ChatResponseMessage
+  from: string
+  to: string
+  content: string
 }
-export interface WebSocketContextProps {
-  messages: IMessage[]
-  sendMessage: (message: IMessage) => void
+export interface ILoginMessage {
+  messageType:
+    | MessageType.LoginRequestMessage
+    | MessageType.LoginResponseMessage
+  username: string
+  password: string
+}
+export type IMessage = IChatMessage | ILoginMessage
+export interface WebSocketContextProps<T extends IMessage> {
+  messages: T[]
+  sendMessage: (message: T) => void
   isConnected: boolean
 }
 interface WebSocketProviderProps {
   url: string
   children: ReactNode
 }
-export const WebSocketContext = createContext<WebSocketContextProps | null>(
-  null
-)
+export const WebSocketContext =
+  createContext<WebSocketContextProps<IMessage> | null>(null)
 
 export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   url,
