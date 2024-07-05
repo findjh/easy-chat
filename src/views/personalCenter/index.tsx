@@ -7,6 +7,7 @@ const PersonalCenter = () => {
   if (user) {
     return (
       <div>
+        <div>test workflow</div>
         <div>{user.username}</div>
         <Button color="primary" onClick={logout}>
           退出
