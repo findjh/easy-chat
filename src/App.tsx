@@ -5,7 +5,7 @@ import { WebSocketProvider } from './context/webSocketContext'
 function App() {
   return (
     <>
-      {/* todo: 需要改成.env配置环境变量  */}
+      {/* todo: 需要改成.env配置环境变量   */}
       <BrowserRouter
         basename={process.env.NODE_ENV === 'production' ? '/easy-chat' : '/'}
       >
