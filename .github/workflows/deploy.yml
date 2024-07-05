@@ -29,13 +29,13 @@ jobs:
     - name: Build project
       run: npm run build
       
-    # 利用action把build好的文件上传到服务器/home/eryajf.github.io路径下,需要确认此目录已在服务端创建
-    - name: deploy file to server
-      uses: wlixcc/SFTP-Deploy-Action@v1.0
+    - name:  deploy file to server
+      uses: appleboy/scp-action@v0.1.7
       with:
-        username: "root" #ssh user name
-        port: "22" # 远程服务器ssh端口，默认22
-        server: "124.71.105.207" # 远程服务器IP
-        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }} # 认证服务器秘钥对的私钥
-        local_path: "./dist/*" # 对应我们项目打包后的静态文件路径
-        remote_path: "/var/www/app" # 服务器上的路径
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        source: "./dist/*"
+        target: "/var/www/app"
+
