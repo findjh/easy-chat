@@ -7,6 +7,41 @@
     display: flex;
     flex: 1;
     overflow: scroll;
-    background-color: #f3f3f3;
+    background-color: rgb(248 250 252);
+    flex-direction: column;
+    padding: 1rem;
+    .left {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      .chat-bubble-other {
+        display: inline-block;
+        margin: 1.5em 0 1.5em 10px;
+        padding: 10px;
+        max-width: 60%;
+        color: #555;
+        font-size: 18px;
+        background: #fdfdfd;
+        border-radius: 0 30px 30px 20px;
+        border: 1px solid #f4f4f4;
+        word-wrap: break-word;
+      }
+    }
+    .right {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      .chat-bubble-self {
+        display: inline-block;
+        margin: 1.5em 10px 1.5em 0;
+        padding: 10px;
+        max-width: 80%;
+        text-align: right;
+        color: #fff;
+        font-size: 16px;
+        background: #48b464;
+        border-radius: 30px 0 20px 30px;
+      }
+    }
   }
 }
