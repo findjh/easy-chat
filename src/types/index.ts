@@ -32,3 +32,4 @@ export enum MessageType {
   // Pong响应消息
   PongMessage = 15
 }
+
