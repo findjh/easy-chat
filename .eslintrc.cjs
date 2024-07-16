@@ -19,6 +19,7 @@ module.exports = {
       "endOfLine": "auto"}
     ],
     "arrow-body-style": "off",
-    "prefer-arrow-callback": "off"
+    "prefer-arrow-callback": "off",
+    "@typescript-eslint/no-unused-vars": "off"
   },
 }
