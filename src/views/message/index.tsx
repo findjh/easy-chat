@@ -72,7 +72,7 @@ const Message = () => {
         groupMsg.messageType = MessageType.GroupCreateRequestMessage
         groupMsg.members = ['zhangsan', 'lisi', 'wangwu']
       } else if (groupType === 'join') {
-        groupMsg.messageType = MessageType.GroupCreateRequestMessage
+        groupMsg.messageType = MessageType.GroupJoinRequestMessage
         groupMsg.members = user!.username
       }
       sendMessage(groupMsg)
