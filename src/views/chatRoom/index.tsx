@@ -21,11 +21,13 @@ const ChatRoom = () => {
   console.log('message', messages)
   /* TODO 获取群成员 */
   // useEffect(() => {
-  //   const msg: IGroupMembersMessage = {
-  //     messageType: MessageType.GroupMembersRequestMessage,
-  //     groupName: routerState.groupName
+  //   if (routerState.type === 'group') {
+  //     const msg: IGroupMembersMessage = {
+  //       messageType: MessageType.GroupMembersRequestMessage,
+  //       groupName: routerState.groupName
+  //     }
+  //     sendMessage(msg)
   //   }
-  //   sendMessage(msg)
   // }, [])
   const user = useLoginStore((state) => state.user)
   const [content, setContent] = useState('')

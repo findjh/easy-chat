@@ -151,7 +151,10 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
   const sendMessage = (message: IMessage) => {
     if (ws.current && ws.current.readyState === WebSocket.OPEN) {
       ws.current.send(JSON.stringify(message))
-      if (message.messageType === MessageType.ChatRequestMessage) {
+      if (
+        message.messageType === MessageType.ChatRequestMessage ||
+        message.messageType === MessageType.GroupChatRequestMessage
+      ) {
         setMessages((prevMessages) => [...prevMessages, message])
       }
     }

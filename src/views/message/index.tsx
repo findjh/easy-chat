@@ -28,8 +28,10 @@ const Message = () => {
   const user = useLoginStore((state) => state.user)
   const { isConnected, sendMessage } = useWebSocket()
   const [searchQuery, setSearchQuery] = useState('')
+  // 群聊
   const [groupName, setGroupName] = useState('')
-
+  const [groupType, setGroupType] = useState('')
+  // 群聊弹框
   const [showJoinGroup, setShowJoinGroup] = useState(false)
 
   // 气泡功能菜单
@@ -42,19 +44,13 @@ const Message = () => {
   ]
 
   const handlePopoverAction = (node: Action) => {
-    const groupMsg: IGroupMessage = {
-      messageType: MessageType.GroupCreateRequestMessage,
-      groupName: '测试群聊',
-      members: ['zhangsan', 'lisi', 'wangwu']
-    }
     switch (node.key) {
       case 'createGroup':
-        sendMessage(groupMsg)
-        navigate('/chatRoom', {
-          state: { type: 'group', groupName: groupMsg.groupName }
-        })
+        setGroupType('create')
+        setShowJoinGroup(true)
         break
       case 'joinGroup':
+        setGroupType('join')
         setShowJoinGroup(true)
         break
       default:
@@ -64,6 +60,31 @@ const Message = () => {
         break
     }
   }
+
+  const confirmGroup = (node: Action) => {
+    if (node.key === 'confirm') {
+      const groupMsg: IGroupMessage = {
+        messageType: MessageType.GroupJoinRequestMessage,
+        groupName: groupName,
+        members: ''
+      }
+      if (groupType === 'create') {
+        groupMsg.messageType = MessageType.GroupCreateRequestMessage
+        groupMsg.members = ['zhangsan', 'lisi', 'wangwu']
+      } else if (groupType === 'join') {
+        groupMsg.messageType = MessageType.GroupCreateRequestMessage
+        groupMsg.members = user!.username
+      }
+      sendMessage(groupMsg)
+      navigate('/chatRoom', {
+        state: { type: 'group', groupName: groupName }
+      })
+    } else {
+      setShowJoinGroup(false)
+      setGroupName('')
+    }
+  }
+
   return (
     <div className="h-screen w-screen">
       <div className="w-screen flex items-center justify-center py-2 relative">
@@ -96,21 +117,19 @@ const Message = () => {
       </div>
       <Dialog
         visible={showJoinGroup}
-        title={'输入群聊名称'}
+        title={groupType === 'create' ? '创建群聊' : '加入群聊'}
         closeOnMaskClick={true}
         content={
-          <>
-            <div className="p-2 bg-slate-100">
-              <Input
-                placeholder="请输入群聊名称"
-                value={groupName}
-                onChange={(val) => {
-                  setGroupName(val)
-                }}
-                clearable
-              />
-            </div>
-          </>
+          <div className="p-2 bg-slate-100">
+            <Input
+              placeholder="请输入群聊名称"
+              value={groupName}
+              onChange={(val) => {
+                setGroupName(val)
+              }}
+              clearable
+            />
+          </div>
         }
         onClose={() => {
           setShowJoinGroup(false)
@@ -118,30 +137,17 @@ const Message = () => {
         actions={[
           [
             {
-              key: 'confirm',
-              text: '确认'
-            },
-            {
               key: 'cancel',
               text: '取消'
+            },
+            {
+              key: 'confirm',
+              text: '确认'
             }
           ]
         ]}
         onAction={(node) => {
-          if (node.key === 'confirm') {
-            const groupMsg: IGroupMessage = {
-              messageType: MessageType.GroupJoinRequestMessage,
-              groupName: groupName,
-              members: user!.username
-            }
-            sendMessage(groupMsg)
-            navigate('/chatRoom', {
-              state: { type: 'group', groupName: groupName }
-            })
-          } else {
-            setShowJoinGroup(false)
-            setGroupName('')
-          }
+          confirmGroup(node)
         }}
       />
       {isConnected ? (
