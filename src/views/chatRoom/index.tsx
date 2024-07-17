@@ -19,13 +19,14 @@ const ChatRoom = () => {
   const { state: routerState } = useLocation()
   const { messages, sendMessage, isConnected } = useWebSocket<IMessage>()
   console.log('message', messages)
-  useEffect(() => {
-    const msg: IGroupMembersMessage = {
-      messageType: MessageType.GroupMembersRequestMessage,
-      groupName: routerState.groupName
-    }
-    sendMessage(msg)
-  }, [])
+  /* TODO 获取群成员 */
+  // useEffect(() => {
+  //   const msg: IGroupMembersMessage = {
+  //     messageType: MessageType.GroupMembersRequestMessage,
+  //     groupName: routerState.groupName
+  //   }
+  //   sendMessage(msg)
+  // }, [])
   const user = useLoginStore((state) => state.user)
   const [content, setContent] = useState('')
   const handleSubmit = () => {

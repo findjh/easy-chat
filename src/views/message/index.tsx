@@ -42,13 +42,13 @@ const Message = () => {
   ]
 
   const handlePopoverAction = (node: Action) => {
+    const groupMsg: IGroupMessage = {
+      messageType: MessageType.GroupCreateRequestMessage,
+      groupName: '测试群聊',
+      members: ['zhangsan', 'lisi', 'wangwu']
+    }
     switch (node.key) {
       case 'createGroup':
-        const groupMsg: IGroupMessage = {
-          messageType: MessageType.GroupCreateRequestMessage,
-          groupName: '测试群聊',
-          members: ['zhangsan', 'lisi', 'wangwu']
-        }
         sendMessage(groupMsg)
         navigate('/chatRoom', {
           state: { type: 'group', groupName: groupMsg.groupName }

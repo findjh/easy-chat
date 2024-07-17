@@ -37,7 +37,7 @@ const MessageList = () => {
         <div
           className="h-full"
           onClick={() => {
-            navigate('/chatRoom',{state:{type:'chat'}})
+            navigate('/chatRoom', { state: { type: 'chat' } })
           }}
           // prefix={
           //   <Avatar
