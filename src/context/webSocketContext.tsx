@@ -112,9 +112,8 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({
           // })
           navigate('/message')
         } else if (
-          message.messageType ===
-          (MessageType.ChatResponseMessage ||
-            MessageType.GroupChatResponseMessage)
+          message.messageType === MessageType.ChatResponseMessage ||
+          message.messageType === MessageType.GroupChatResponseMessage
         ) {
           setMessages((prevMessages) => [...prevMessages, message])
           // Toast.show({
