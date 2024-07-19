@@ -1,7 +1,7 @@
 import { Action } from 'antd-mobile/es/components/swipe-action'
 import { useNavigate } from 'react-router-dom'
 import useLoginStore from '@/store/loginStore'
-import { Avatar, Badge, SwipeAction } from 'antd-mobile'
+import { Avatar, Badge, Image, SwipeAction } from 'antd-mobile'
 
 const MessageList = () => {
   const user = useLoginStore((state) => state.user)
@@ -52,6 +52,13 @@ const MessageList = () => {
                 src={user!.headurl}
                 style={{ '--size': '52px', '--border-radius': '50%' }}
               />
+              {/* TODO 群聊消息头像 */}
+              {/* <div className="flex items-center justify-center content-center w-14 h-14 flex-wrap rounded-full border border-black border-solid">
+                <Image src={user!.headurl} width={22} height={22} className='m-px rounded-full'/>
+                <Image src={user!.headurl} width={22} height={22} className='m-px rounded-full'/>
+                <Image src={user!.headurl} width={22} height={22} className='m-px rounded-full'/>
+                <Image src={user!.headurl} width={22} height={22} className='m-px rounded-full'/>
+              </div> */}
             </div>
             <div className="mx-2 w-full">
               <div className="flex justify-between">

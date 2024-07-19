@@ -8,11 +8,16 @@ const PersonalCenter = () => {
     return (
       <div>
         <div>=================test workflow=================</div>
-        <div>{user.username}</div>
+        <div className="flex items-center">
+          <Avatar
+            src={user.headurl}
+            style={{ '--size': '64px', '--border-radius': '50%' }}
+          />
+          <div className="ml-1">{user.username}</div>
+        </div>
         <Button color="primary" onClick={logout}>
           退出
         </Button>
-        <Avatar src={user.headurl} />
       </div>
     )
   }
